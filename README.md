@@ -4,11 +4,13 @@ anagram
 Find anagrams of input that are also dictionary words
 
 Usage:
+```
 >> ruby anagrams.rb winteriscoming
 win
 in
 is
 ...
+```
 
 Suppose the size of the input is N and the size of the word list is c. c is a constant. One way
 to solve this is to enumerate all anagrams of the input, then check each one to see if it's in the word list.
