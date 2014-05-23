@@ -1,3 +1,13 @@
+# ruby -v 2.1.0
+# usage
+# 
+# ruby anagrams.rb winteriscoming
+# >> win
+# >> in
+# >> is
+# ...
+# 
+# word list from http://www.zyzzyva.net/wordlists.shtml
 def words
   words = File.open("word_list.txt").readlines.map do |line|
     line.match(/^\w+/)[0]
@@ -49,5 +59,7 @@ def anagram_words(input)
 end
 
 if __FILE__ == $0
+  input = ARGV[0]
+  puts anagram_words(input)
 end
     
