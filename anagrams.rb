@@ -4,16 +4,16 @@ def words
   end
 end
 
-def is_subword(input, word)
-  input.downcase!
+def is_subword(subword, word)
+  subword = String.new(subword).downcase
   word.downcase!
 
-  if input.length > word.length
+  if subword.length > word.length
     return false
   end
 
   word_chars = word.chars
-  input.each_char do |input_char|
+  subword.each_char do |input_char|
     if (i = word_chars.find_index(input_char))
       word_chars.delete_at i
     else
@@ -24,17 +24,30 @@ def is_subword(input, word)
   return true
 end
 
-if __FILE__ == $0
+def anagram_words(input)
+  input_sorted_letters = input.chars.sort.join("")
+  ret = []
   # go through wordlist
-  # for each word, create a hash word_hash of {sorted_letters => word}
-  known_words = Hash[words().map{|word| [word.downcase.sort, word]}]
+  # for each word, create a hash word_hash of {sorted_letters => [word1, word2, ...]}
+  word_hash = Hash.new { |hash, key| hash[key] = [] }
+  words().each do |word|
+    word.downcase!
+    letters = word.chars.sort.join('')
+    word_hash[letters] << word
+  end
+
   # go through each word of word_hash
-  known_words.each do |word|
-  # if the input is a subword of it
-    if is_subword(input, word)
+  word_hash.each do |sorted_letters, words|
+  # if the known word is a subword of the input
+    if is_subword(sorted_letters, input_sorted_letters)
     # add the word
-      words << word
+      ret += words
     end
   end
+
+  return ret
+end
+
+if __FILE__ == $0
 end
     
